@@ -1,0 +1,48 @@
+<div *ngIf="selectedProduct" class="row border m-0 p-3 mb-4">
+  <div class="col-md-2">
+    <img class="img-fluid" src="/assets/img/{{selectedProduct.imageUrl}}">
+  </div>
+
+<div class="col-md-10">
+  <h5 class="card-title">
+    ID :{{selectedProduct.id}}
+  </h5>
+  <p class="card-text">
+    Name :{{selectedProduct.name}}
+  </p>
+  <p class="card-text">
+    Descriptions :{{selectedProduct.description}}
+  </p>
+  <button (click)="addProductToCart(selectedProduct)"
+          class="btn btn-outline-primary btn-sm">Add To Cart
+  </button> &nbsp;
+  <button (click)="hideDetails()" class="btn btn-outline-danger btn-sm">Seçimi İptal Et</button>
+
+</div>
+</div>
+<div class="row">
+  <div *ngFor="let p of products" class="col-md-4">
+    <div class="card mb-3">
+      <img alt="{{p.name}}" height="250px" src="/assets/img/{{p.imageUrl}}" width="250px">
+      <div class="card-body">
+        <h4 class="cart-title"><a href="">{{p.name}}</a></h4>
+
+        <span class="text-muted">
+                  <h6>
+                    <i class="badge badge-secondary bg-danger">Price</i>&nbsp;
+                    <i class="fas fa-lira-sign"></i>
+                    {{p.price}}
+                  </h6>
+                  <span>{{p.description}}</span>
+                </span>
+      </div>
+      <div class="card-footer text-center">
+        <button (click)="displayDetails(p)" class="btn btn-outline-primary btn-sm">
+          Details</button> &nbsp
+        <button (click)="addProductToCart(p)"
+                class="btn btn-outline-primary btn-sm">Add To Cart
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

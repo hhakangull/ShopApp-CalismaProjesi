@@ -1,0 +1,99 @@
+<navbar></navbar>
+
+<div class="container pt-100 mb-5">
+
+  <h1 class="mb-2">Alış Veriş Sepetiniz</h1>
+  <div class="row">
+    <div class="col-8">
+      <ng-container *ngIf="cart.itemCount>0">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Ürün</th>
+            <th>Fiyat</th>
+            <th>Adet</th>
+            <th>Toplam</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of cart.items">
+            <td><img alt="" src="assets/img/{{item.product.imageUrl}}" width="80"></td>
+            <td>{{item.product.name}}</td>
+            <td>{{item.product.price}} ₺</td>
+            <td>
+              <!--input type="text" class="form-control" [value]="item.quantity"
+              (change)="cart.updateQuantity(item.product,$event.target.value)"-->
+              <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                  <button (click)="reduceItem(item.product)"
+                          class="input-group-text"
+                          id="inputGroup-sizing-sm">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+                <input #quantityValue [value]="item.quantity" aria-describedby="inputGroup-sizing-sm" aria-label="Small"
+                       class="form-control text-center"
+                       disabled="disabled" max="10" min="1"
+                       type="text"
+                       value="{{item.quantity}}">
+                <div class="input-group-prepend">
+                  <button class="input-group-text" id="inputGroup-sizing-sx"
+                          (click)="increaseItem(item.product)"
+                          style="border-top-right-radius: 5px;border-bottom-right-radius: 5px">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </td>
+            <td>{{item.quantity * item.product.price}} ₺</td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="cart.removeItem(item.product.id)">
+                <i class="fas fa-shopping-basket"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </ng-container>
+
+      <ng-container *ngIf="cart.itemCount==0">
+        <div class="alert alert-warning mt-3">Sepetinizde Ürün Yok <br>
+          <button class="btn btn-link p-0" routerLink="/shop">
+            AlışVerişe DEvam Etmek İçin Tıklayınız
+          </button>
+        </div>
+      </ng-container>
+    </div>
+    <div class="col-4">
+      <ng-container *ngIf="cart.itemCount>0">
+        <div class="text-left">
+          <h4>Alışveriş Özeti</h4>
+        </div>
+        <table class="table">
+          <tbody>
+          <tr>
+            <th>Toplam</th>
+            <th>{{cart.itemTotal}} ₺</th>
+          </tr>
+          </tbody>
+        </table>
+
+        <button class="btn bg-primary btn-sm text-white" routerLink="/shop">
+          Devam Et
+        </button>
+        <button class="btn bg-success btn-sm ml-2 text-white" routerLink="/checkout">
+          Tamamla
+        </button>
+        <button class="btn btn-danger btn-sm ml-2 text-white" (click)="cart.clear()">
+          <i class="fas fa-shopping-basket"></i>
+          Temizle
+        </button>
+
+      </ng-container>
+
+
+    </div>
+  </div>
+</div>
